@@ -50,7 +50,7 @@
             >
               {{ this.item.status }}
             </span>
-            
+
             <strong>Заказ</strong> <hr>
 
 
@@ -86,12 +86,12 @@
 
           </div>
 
-          <strong>Клиент</strong> 
-          
+          <strong>Клиент</strong>
+
           <div class="float-right" v-if="item.countryid === 'UA'">
             <img src="static/img/flags/Ukraine.png" alt="USA" style="height: 40px; margin-top: -8px;">
           </div>
-         
+
           <hr>
           <!-- Name -->
           <b-form-fieldset
@@ -205,9 +205,9 @@
                     style="font-size: 18px">
                 Кол-во: {{ this.item.products.reduce((summ, product) => Number(summ) + Number(product.qty), 0), }} шт.
               </span>
-              
+
               <strong>Товар</strong> <hr>
-  
+
               <b-form-fieldset
                 label="На сумму:"
                 :label-cols="5"
@@ -217,9 +217,9 @@
                   {{ this.item.products.reduce((summ, product) => summ + (product.price.total * (product.qty || 1)), 0) }} грн.
                 </p>
               </b-form-fieldset>
-  
+
             </div>
-  
+
             <strong>Список</strong>
             <label class="switch switch-sm switch-text switch-info float-right mb-0">
               <input type="checkbox" class="switch-input" v-model="showInfoChecked">
@@ -236,7 +236,7 @@
                   <div v-if="!showInfoChecked">
                       <div class="card-text col-form-legend">
                         {{ product.name }} |  {{ product.model }} |  {{ product.price.total * product.qty }} грн.
-                      </div>   
+                      </div>
                   </div>
 
                   <div v-if="showInfoChecked">
@@ -328,6 +328,8 @@ import Multiselect from 'vue-multiselect'
 
 import { TYPE_OF_TEXTILE } from '../data/textile.js'
 
+const linkOrders = `${process.env.ENDPOINT}/api/orders`
+
 // const queryString = require('query-string')
 
 export default {
@@ -355,7 +357,7 @@ export default {
   created () {
     const orderId = this.$route.params.id || null
     console.log(this.$route.params.id)
-    axios.get('http://localhost:4040/api/orders/' + orderId)
+    axios.get(`${linkOrders}/${orderId}`)
       .then(response => {
         this.item = response.data
         this.activeStatus = this.item.status || 'Новый'
@@ -378,7 +380,7 @@ export default {
     //     })
     // },
     changeStatus (status) {
-      axios.put('http://localhost:4040/api/orders/' + this.item._id, { status })
+      axios.put(`${linkOrders}/${this.item._id}`, { status })
         .then(response => {
           this.item = response.data
           this.activeStatus = this.item.status
@@ -396,7 +398,7 @@ export default {
   .form-row > legend {
     text-align: right;
   }
-  
+
   .custom__tag {
     display: inline-block;
     padding: 3px 12px;
@@ -610,7 +612,7 @@ export default {
     border-left-color: #d9534f;
   }
 
-  
+
 .label {
   font-size: 12px;
   font-weight: 400;

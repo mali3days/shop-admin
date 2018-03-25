@@ -44,6 +44,9 @@
 
 <script>
 import axios from 'axios'
+
+const linkAuth = `${process.env.ENDPOINT}/api/auth`
+
 export default {
   name: 'Login',
   data () {
@@ -57,7 +60,7 @@ export default {
       const creds = { username: this.un, password: this.pd }
       console.log('!!!')
       console.log(creds)
-      axios.post('http://localhost:4040/api/auth/login', creds)
+      axios.post(`${linkAuth}/login`, creds)
         .then((response) => {
           const { data } = response
           console.log(response)

@@ -31,6 +31,8 @@
 import axios from 'axios'
 import cTable from './components/Table.vue'
 
+const linkOrders = `${process.env.ENDPOINT}/api/orders`
+
 export default {
   name: 'orders',
   components: { cTable },
@@ -67,7 +69,7 @@ export default {
     const config = {
       headers: { 'Authorization': `Bearer ${token}` }
     }
-    axios.get('http://localhost:4040/api/orders', config)
+    axios.get(linkOrders, config)
       .then(response => {
         console.log(response.data)
 

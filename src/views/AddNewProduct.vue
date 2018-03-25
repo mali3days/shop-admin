@@ -182,13 +182,13 @@
           </b-form-fieldset>
 
           <!-- ImagesPC -->
-          <b-form-fieldset
+          <!-- <b-form-fieldset
             label="Изобр-я с ПК"
             :label-cols="3"
             :horizontal="true">
               <b-form-file @change.native="previewFileFromPC" v-model="form_descr.images.PC" choose-label="Тыц" accept="image/*" :multiple="true">
               </b-form-file>
-          </b-form-fieldset>
+          </b-form-fieldset> -->
 
           <!-- ImagesWEB -->
           <b-form-fieldset
@@ -321,6 +321,9 @@ const TYPE_OPTIONS = {
   Child: ['Свитшоты', 'Футболки'],
   Unisex: ['Рюкзаки']
 }
+
+const linkProducts = `${process.env.ENDPOINT}/api/products`
+const linkUtils = `${process.env.ENDPOINT}/api/util`
 
 export default {
   name: 'addNewProduct',
@@ -475,7 +478,7 @@ export default {
       }
 
       console.log(newProduct)
-      axios.post('http://localhost:4040/api/products', newProduct)
+      axios.post(linkProducts, newProduct)
         .then(function (response) {
           console.log(response)
         })
@@ -535,7 +538,7 @@ export default {
       this.form_descr.tags = ['Cупер prikid', 'Лето1999', 'COffee']
     },
     fetchProductsSRC (url) {
-      axios.get('http://localhost:4040/api/util/csvtojson?url=' + url)
+      axios.get(`${linkUtils}/csvtojson?url=${url}`)
         .then((json) => {
           console.log(json)
           alert('Товары с Гарда были добавлены!')
@@ -545,7 +548,7 @@ export default {
         })
     },
     deleteProductsByManufac (manufac) {
-      axios.delete('http://localhost:4040/api/util/deleteProductsByManufacturer?manufac=' + manufac)
+      axios.delete(`${linkUtils}/deleteProductsByManufacturer?manufac=${manufac}`)
         .then((json) => {
           console.log(json)
           alert(`Все товары у которых Поставщик - ${manufac} были удалены!`)
@@ -555,7 +558,7 @@ export default {
         })
     },
     deleteAllProducts () {
-      axios.delete('http://localhost:4040/api/util/deleteAllProducts')
+      axios.delete(`${linkUtils}/deleteAllProducts`)
         .then((json) => {
           console.log(json)
           alert('Все товары были удалены!')
