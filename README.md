@@ -2,6 +2,8 @@
 
 > Open Source Admin Template
 
+#DEMO [Bubble Shop ADMIN](https://mali3days.github.io/shop-admin/#/).
+
 ## Build Setup
 
 ``` bash
